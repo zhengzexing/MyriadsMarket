@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: gulimall-product
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        namespace: 71a37dcf-b40f-4299-ac07-1f89fc1e9ac8 # product商品服务命名空间
+        group: dev
+
+        ext-config:
+          - data-id: datasource.yaml
+            group: dev
+            refresh: true
+          - data-id: mybatis.yaml
+            group: dev
+            refresh: true
+          - data-id: other.yaml
+            group: dev
+            refresh: true
+
+server:
+  port: 10000

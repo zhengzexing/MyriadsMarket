@@ -1,0 +1,97 @@
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+        port: 8719
+
+    gateway:
+      routes:
+        - id: third_party_route
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+
+        - id: product_route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: coupon_route
+          uri: lb://gulimall-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: member_route
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://gulimall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: auth_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: gulimall_host_route
+          uri: lb://gulimall-product
+          predicates:
+            - Host=gulimall.com,item.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_search_route
+          uri: lb://gulimall-search
+          predicates:
+            - Host=search.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_auth_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Host=auth.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_cart_route
+          uri: lb://gulimall-cart
+          predicates:
+            - Host=cart.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_order_route
+          uri: lb://gulimall-order
+          predicates:
+            - Host=order.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_member_route
+          uri: lb://gulimall-member
+          predicates:
+            - Host=member.gulimall.com #来自192.168.88.131的访问
+
+        - id: gulimall_seckill_route
+          uri: lb://gulimall-seckill
+          predicates:
+            - Host=seckill.gulimall.com #来自192.168.88.131的访问
+
+
+feign:
+  sentinel:
+    enabled: true

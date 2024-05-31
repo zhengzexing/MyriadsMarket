@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: gulimall-order
+
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.88.131:3306/gulimall_oms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+        port: 8719
+
+  rabbitmq:
+    host: 192.168.88.131
+    port: 5672
+    virtual-host: /
+    publisher-confirms: true #开启发送端确认机制 ConfirmCallback
+    publisher-returns: true #开启发送端消息抵达队列的确认 ReturnCallback
+    template:
+      mandatory: true # 只要消息抵达了队列，以异步的方式优先回调ReturnCallback方法
+    listener:
+      simple:
+        acknowledge-mode: manual #auto自动回复，消息抵达，自动回复，不管消息是否处理成功 manual手动回复，消息处理成功才会ack
+
+  thymeleaf:
+    cache: false
+
+  session:
+    store-type: redis
+
+  redis:
+    port: 6379
+    host: 192.168.88.131
+
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+server:
+  port: 9010
+
+# 线程池参数配置
+gulimall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
+
+alipay:
+  app_id: 9021000136621428
+  merchant_private_key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCT9T2G4QUxK8HEt7pe3Hitnlin5sIeDgqbjwSagyWpaYqLvSWjXsxj0yOb/5UADpaMiv7vLz064TBpA3MOhj9FL3SlZARtMpyf0bmswUiuWWjBCPk+YvzZgSvb0etrEe4LNhIZ8Lr3lljtLy6iY8/tYRq4E969P3vZ714BDuLH3zT+a9tYB185N292BvN6oZlUqCQLf0r14ED3Z96aeX7nX8PqH4XdTLkStvBansppMd3Fw58Dp7RbCmzdZnCHuqp/EIU+Fp91OZHHzcEVc3WNVD6Hdy9baz+u6zK+RVkF3byYOC0dL/Qfh+7JacCedwlBDi3ZssGGyEdby3o08gCzAgMBAAECggEBAIn6sUcgf9QMJ2bJpB8k4dGfkrP5ydt3YsMRC80AMtYbW53XZctF87vAQjwPjCeCczlbwkTSO/q12IyGL/1Ciqx9hf1bGZmwEkokrlAB7ELTlJI4SR+59mzsPjeAO1gdX23LHfRdAC82YXXHg2jjRhvsa5twxE6ebmSeCn9YH3seKoH7SspfM1sDG1IppvlJu1BhsGQ7bCdEyMI9CpIhLq8Qc8c5Ex7a2Ro+SR8vxhGnCKsYJTgp42R4Hvzxuy+K2nhcKvzbpm5Q2khQ8e0J0jMJfnpL546455lTlL2WaG45gE4LZfKA/Uhy4u704xebJoRdu96Rk24eMXRYj5rFY1ECgYEA2oM8Qm4kZH6GNokHWd/DmIGKj+AUAMm+Wx8WUm12W2AqOnuiFWEtpWCG7oJoJuqaxbS24N1f7e4EvFlrVhdnP8GuPQ/FTfAiEvaLl5SV0ZqVVQ/Zytuw+/w9aY8KZKoufCtQi4yRCmzp4LMC3+TISA4NrA6jAHvmpW69lBhWobsCgYEArVdYG2jNzGFryPx1gKuBgqLD+J1aKAkvu6Kv+3kEW8TFCrvJ5OFg/HG6+lptdptS/SH/e/ieeXLozFhMWLTnIpjdQIHUOv9ZmUbSRdxhm7OIB5bG7IyPTuBpAeHBdim0mB4TMHZf7J6dnzr5WyRPEEieZgmmtuC6Xpt6w1gg0WkCgYEAvExY8jntvHfXeklM/2K3L8V5vQ/wzNkM44L/flp7orRUz37YpqnOZvOucvwHenmyk+ptqYq67tKsXA6GU3Lpc2SYnF/pu4bSJhs1IZNWI4CdbOay3H/CnPK5jSxJXYPVeQTubMLd/ejrBcndEUkaWhVaLMmUJ4edszOhxGvQw58CgYBne66A5od+DWcAnR81Cq6No8gk4yOQpTNW7F/tXCjq9ETCDKwSNS7mZqs+jL+uwDnCHwrcIufRD3XFkK07g/w83k+wFBH0ir8dz3b2+ANZpct+5Fernpprd3OZCQKrHWjQK5w/IVxQ8byd8+IrtDhzOzc9KWPa57y7gEzA1Br7iQKBgFoWnYQxU0H+uflp8WxtVt1wapdY20TyW+VEOqrlytFkiQqyu52fdYFLmTsKWnMTsfpRmbtUULpRx5ER8pecg9qfVa5wYF8zH3Es4bId/H+IyOy9FPfLtOS8julecBy/epPNCr5NyI3vjsDGITbKtFI1BIepOdJKlDoMcatXujNi
+  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArXYhkEYCzxBMr/bEa9pEmav0GbNNtxUzD22JDA0Aw4K/rNHw1ZAiRRcjHCLDY0jaKpxnrywtuMnXioDxqAvQJQ3LiTmFxRHO6dHzztoXJ3tlDTOMLvsH286XP3CeW/wWyc8uP3FTlqu3wtSc5GjuOb5DcO8jbMpLIO0JejzK3+jE5Ebb70QTiHocaQLW98DlRzLvQZQFXyc5hpQ4wnkYoJFs1CT5BNS/D/hIO9ODR4c1169hhfexjypo7B9FUe/g85bzuLAdN/WtK6aI9wdeMESOtjFsWPQp9CcPp1tzHbq+t5NaaOGnVGg3DJgpD76v1nE2ubTO09Zz6Y/wj/47YwIDAQAB
+  notify_url: http://mkji5m.natappfree.cc/payed/notify
+  return_url: http://member.gulimall.com/memberOrder.html
+
+feign:
+  sentinel:
+    enabled: true
+
+
+

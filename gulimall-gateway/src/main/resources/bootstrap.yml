@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gulimall-gateway # 这里的application name是用来拼接寻找配置中心的配置文件的 gulimall-gateway.yaml
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        namespace: 7eeadec5-9125-4bfb-9543-0b8c5be6ad85 # gateway网关服务命名空间
+        group: dev
+

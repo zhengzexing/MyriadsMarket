@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+        port: 8719
+
+feign:
+  sentinel:
+    enabled: true

@@ -1,0 +1,32 @@
+spring:
+  redis:
+    host: 192.168.88.131
+    port: 6379
+
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+        port: 8719
+
+  session:
+    store-type: redis
+
+  cache:
+    type: redis #配置缓存的类型，使用redis进行缓存
+    redis:
+      time-to-live: 3600000 #配置缓存的过期时间，毫秒
+      #key-prefix: CACHE_ #配置缓存分区命名空间的前缀（注解的cacheNames就失效了），使用前缀作分区，不配置就使用注解的CacheName作分区
+      use-key-prefix: true #开启使用命名空间前缀
+      cache-null-values: true #允许在redis中缓存空值，防止缓存穿透问题
+
+# 线程池参数配置
+gulimall:
+  thread:
+    core-size: 20
+    max-size: 200
+    keep-alive-time: 10
+
+feign:
+  sentinel:
+    enabled: true # 开启sentinel对feign远程调用的监控，熔断和降级

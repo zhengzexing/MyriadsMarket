@@ -1,0 +1,14 @@
+spring:
+  redis:
+    host: 192.168.88.131
+    port: 6379
+
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+        port: 8719
+
+feign:
+  sentinel:
+    enabled: true
